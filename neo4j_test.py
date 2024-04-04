@@ -2,6 +2,7 @@ from langchain.chains import GraphCypherQAChain
 from langchain_community.graphs import Neo4jGraph
 from langchain.llms import LlamaCpp
 from langchain.prompts import PromptTemplate
+import os
 
 llm = LlamaCpp(
     model_path=r"G:\Meu Drive\Modelos\llama-2-7b-chat.Q3_K_M.gguf",
@@ -14,7 +15,7 @@ llm = LlamaCpp(
     )
 
 graph = Neo4jGraph(
-    url="neo4j+s://0df231b2.databases.neo4j.io", username="neo4j", password="5T5C0frCeJimyvRRiU5QOZmC-OKb9DAZsGQoGXOEVIw"
+    url=os.environ.get("DATABASE_URL"), username=os.environ.get("DATABASE_USERNAME"), password=os.environ.get("DATABASE_PASSWORD")
 )
 
 graph.refresh_schema()
